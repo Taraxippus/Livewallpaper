@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MyApp</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">Live wallpaper</string>
 
+	<string-array name="modes">
+        <item>Default</item>
+		<item>Double</item>
+		<item>Rotated double</item>
+    </string-array>
+	
+	<string-array name="mode_values">
+        <item>default</item>
+		<item>double</item>
+		<item>double_rotated</item>
+    </string-array>
+	
 </resources>

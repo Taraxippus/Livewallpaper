@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory 
+		android:title="General">
+
+		<Preference
+            android:title="Set live wallpaper"
+			android:summary="Set this as your wallpaper"
+            android:key="setWallpaper" 
+		/>
+
+		<ListPreference
+			android:title="Choose mode"
+			android:summary="Choose between different wallpaper modes"
+            android:key="mode" 
+			android:entries="@array/modes"
+			android:entryValues="@array/mode_values"
+			android:defaultValue="default"
+		/>
+		
+		<CheckBoxPreference
+            android:title="Enable color variation"
+			android:summary="Color waves in different colors"
+            android:key="colorVariation" 
+		/>
+	
+		<Preference
+            android:title="Edit waves"
+			android:summary="Set wave count and modify individual waves"
+            android:key="waves" 
+		/>
+		
+	</PreferenceCategory>
+	
+	<PreferenceCategory 
+		android:title="Colors">
+
+		<Preference
+            android:title="Choose primary wave color"
+			android:summary="Choose the primary color for the waves"
+            android:key="colorWave1" 
+			android:defaultValue="#ffff00"
+		/>
+		<Preference
+            android:title="Choose secondary wave color"
+			android:summary="Choose the secondary color for the waves"
+            android:key="colorWave2" 
+			android:defaultValue="#ff4400"
+		/>
+		<Preference
+            android:title="Choose background color"
+			android:summary="Choose the color of the background"
+            android:key="colorBackground" 
+			android:defaultValue="#ff8800"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory 
+		android:title="Animation">
+
+		<EditTextPreference
+            android:title="Speed modifier"
+			android:summary="Modify wave animation speed"
+            android:key="timeFactor" 
+			android:defaultValue="1.0"
+			android:inputType="numberDecimal"
+		/>
+		<EditTextPreference
+            android:title="Swipe speed modifier"
+			android:summary="Modify wave animation speed after swipe"
+            android:key="touchTimeFactor" 
+			android:defaultValue="1.0"
+			android:inputType="numberDecimal"
+		/>
+	</PreferenceCategory>
+	
+	<PreferenceCategory 
+		android:title="Debug">
+		
+		<Preference
+            android:title="Crash"
+			android:summary="Crash this application for debug purposes"
+            android:key="crash" 
+		/>
+	</PreferenceCategory>
+</PreferenceScreen>
