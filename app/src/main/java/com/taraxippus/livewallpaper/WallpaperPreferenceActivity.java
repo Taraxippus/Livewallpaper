@@ -213,6 +213,7 @@ public class WallpaperPreferenceActivity extends PreferenceActivity
 		
 		View v = getLayoutInflater().inflate(R.layout.edit_waves, null);
 		
+		//TODO: edit waves
 		
 		alertDialog.setView(v);
 		alertDialog.show();
