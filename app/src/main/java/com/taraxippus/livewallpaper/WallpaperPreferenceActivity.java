@@ -8,6 +8,7 @@ import android.widget.*;
 import android.graphics.*;
 import android.view.inputmethod.*;
 import android.graphics.drawable.*;
+import android.support.v7.widget.*;
 
 public class WallpaperPreferenceActivity extends PreferenceActivity
 {
@@ -208,14 +209,31 @@ public class WallpaperPreferenceActivity extends PreferenceActivity
 	
 	public void editWaves()
 	{
-		AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+		final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 		alertDialog.setTitle("Edit waves");
 		
 		View v = getLayoutInflater().inflate(R.layout.edit_waves, null);
 		
-		//TODO: edit waves
+		RecyclerView recyclerView = (RecyclerView)v.findViewById(R.id.wave_list);
+		
+		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+		recyclerView.setLayoutManager(layoutManager);
+		
+		recyclerView.addItemDecoration(new DividerItemDecoration(this));
+		
+		WaveAdapter adapter = new WaveAdapter();
+		recyclerView.setAdapter(adapter);
 		
 		alertDialog.setView(v);
+		alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new AlertDialog.OnClickListener()
+			{
+				@Override
+				public void onClick(DialogInterface p1, int p2)
+				{
+					alertDialog.dismiss();
+				}
+				
+		});
 		alertDialog.show();
 		
 	}

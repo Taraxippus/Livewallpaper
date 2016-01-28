@@ -16,6 +16,7 @@ import java.io.*;
 import javax.microedition.khronos.egl.*;
 import android.os.*;
 import android.preference.*;
+import java.util.*;
 
 public class OpenGLESWallpaperService extends GLWallpaperService 
 {
@@ -42,7 +43,7 @@ public class OpenGLESWallpaperService extends GLWallpaperService
                 setPreserveEGLContextOnPause(true);
 				setEGLConfigChooser(new ConfigChooser());
 				
-				OpenGLESWallpaperService.GLRenderer renderer = new GLRenderer(OpenGLESWallpaperService.this, surfaceHolder);
+				OpenGLESWallpaperService.GLRenderer renderer = new GLRenderer(OpenGLESWallpaperService.this);
 				setRenderer(renderer);
             }
         }
@@ -178,15 +179,22 @@ public class OpenGLESWallpaperService extends GLWallpaperService
 		int waveHandle_wave;
 		int colorHandle_wave;
 		
-		Context context;
-		SurfaceHolder holder;
+		final Context context;
+		final ArrayList<Wave> waves = new ArrayList<>();
 		
-		public GLRenderer(Context context, SurfaceHolder holder)
+		public GLRenderer(Context context)
 		{
 			super();	
 			
 			this.context = context;
-			this.holder = holder;
+			
+
+			this.waves.add(new Wave(0.0625F, 6F, 0.255F, 1 / 1000000F, 1));
+			this.waves.add(new Wave(0.0375F, 5F, 0.1965F, 1 / 750000F, 0.75F));
+			this.waves.add(new Wave(0.235F, 4F, 0.235F, 1 / 800000F, 0.5F));
+			this.waves.add(new Wave(0.1975F, 7F, 0.1975F, 1 / 900000F, 0.25F));
+			this.waves.add(new Wave(0.3775F, 3F, 0.1965F, 1 / 1200000F, 0.65F));
+			this.waves.add(new Wave(0.13F, 2F, 0.1965F, 1 / 700000F, 0));
 		}
 		
 		public String getFragmentShader(String preference)
@@ -343,29 +351,11 @@ public class OpenGLESWallpaperService extends GLWallpaperService
 			
 			GLES20.glUniformMatrix4fv(mvpHandle_wave, 1, false, mvp, 0);
 			
-			uniformColor(1);
-			GLES20.glUniform4f(waveHandle_wave, (time / 1000000F * timeFactor) % ((float) Math.PI * 2 * 2), 6F, 0.0625F, defaultMode ? 0.168F : 0.255F);
-			this.wave.draw(3);
-			
-			uniformColor(0.75F);
-			GLES20.glUniform4f(waveHandle_wave, (time / 750000F * timeFactor) % ((float) Math.PI * 2 * 2), 5F, 0.0375F, defaultMode ? -0.1468F : 0.1965F);
-			this.wave.draw(3);
-
-			uniformColor(0.5F);
-			GLES20.glUniform4f(waveHandle_wave, (time / 800000F * timeFactor) % ((float) Math.PI * 2 * 2), 4F, 0.05F, defaultMode ? -0.1578F : 0.235F);
-			this.wave.draw(3);
-			
-			uniformColor(0.25F);
-			GLES20.glUniform4f(waveHandle_wave, (time / 900000F * timeFactor) % ((float) Math.PI * 2 * 2), 7F, 0.04F, defaultMode ? 0.1357F : 0.1975F);
-			this.wave.draw(3);
-			
-			uniformColor(0.65F);
-			GLES20.glUniform4f(waveHandle_wave, (time / 1200000F * timeFactor) % ((float) Math.PI * 2 * 2), 3F, 0.09F, defaultMode ? -0.478F : 0.3775F);
-			this.wave.draw(3);
-			
-			uniformColor(0);
-			GLES20.glUniform4f(waveHandle_wave, (time / 700000F * timeFactor) % ((float) Math.PI * 2 * 2), 2F, 0.03F, defaultMode ? 0.0678F : 0.13F);
-			this.wave.draw(3);
+			for (Wave wave : waves)
+			{
+				wave.uniform(this);
+				this.wave.draw(3);
+			}
 		}
 
 		public void uniformColor(float percent)

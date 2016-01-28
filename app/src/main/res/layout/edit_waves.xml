@@ -1,20 +1,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
-    
-	<ScrollView  
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+    android:orientation="vertical"
+	android:paddingTop="16dp"
+	android:paddingBottom="16dp">
 		
-		<LinearLayout
-			android:id="@+id/wave_list"
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical">
-			
-		</LinearLayout>
+	<android.support.v7.widget.RecyclerView
+		android:id="@+id/wave_list"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:scrollbars="vertical"
+	>
+
+	</android.support.v7.widget.RecyclerView>
 		
-	</ScrollView>
 	
 </LinearLayout>
